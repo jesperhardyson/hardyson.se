@@ -1,3 +1,8 @@
+## Git workflow
+
+- Always ask for explicit confirmation before running `git commit` or `git push` in this repo — never do either proactively, even after other approved changes.
+- Do not add Claude/Anthropic attribution trailers (e.g. `Co-Authored-By: Claude ...`, `Claude-Session: ...`) to commit messages in this repo.
+
 ## Development
 
 When starting the dev server, use background mode:

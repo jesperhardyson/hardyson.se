@@ -39,6 +39,7 @@ export const ui = {
 		'about.bio1':
 			'Jag är Jesper 👋 — test automation engineer, testledare och systemutvecklare. Jag arbetar med test och testledning, testautomatisering av både gränssnitt och API, och systemutveckling.',
 		'about.tools': '🛠️  VERKTYG & TEKNIK',
+		'about.photoAlt': 'Porträtt av Jesper',
 
 		'projects.eyebrow': '🧪  UTVALDA PROJEKT',
 		'projects.title': 'Utvalda projekt',
@@ -47,6 +48,8 @@ export const ui = {
 		'projects.page.eyebrow': '🧪  PROJEKT',
 		'projects.page.title': 'Saker jag byggt och testat',
 		'projects.page.sub': 'Ett urval av projekt inom testautomatisering, utveckling och CI/CD. Varje projekt länkar till sitt repo på GitHub.',
+		'projects.visit': 'Besök projektet',
+		'projects.viewCode': 'Visa koden',
 		'projects.empty': 'Inga projekt att visa än.',
 
 		'articles.eyebrow': '✍️  UTVALDA ARTIKLAR',
@@ -98,6 +101,7 @@ export const ui = {
 		'about.bio1':
 			"I'm Jesper 👋 — test automation engineer, test lead, and software developer. I work with testing and test management, test automation of both UI and API, and software development.",
 		'about.tools': '🛠️  TOOLS & TECH',
+		'about.photoAlt': 'Portrait of Jesper',
 
 		'projects.eyebrow': '🧪  FEATURED PROJECTS',
 		'projects.title': 'Featured projects',
@@ -106,6 +110,8 @@ export const ui = {
 		'projects.page.eyebrow': '🧪  PROJECTS',
 		'projects.page.title': "Things I've built and tested",
 		'projects.page.sub': 'A selection of projects in test automation, development, and CI/CD. Every project links to its repo on GitHub.',
+		'projects.visit': 'Visit project',
+		'projects.viewCode': 'View code',
 		'projects.empty': 'No projects to show yet.',
 
 		'articles.eyebrow': '✍️  FEATURED ARTICLES',

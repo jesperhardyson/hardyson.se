@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { render } from 'astro:content';
-import { getProjectsForLang } from '../../i18n/utils';
+import { getProjectsForLang, useTranslations } from '../../i18n/utils';
 
 export async function getStaticPaths() {
 	const projects = await getProjectsForLang('sv');
@@ -11,6 +11,7 @@ export async function getStaticPaths() {
 	}));
 }
 
+const t = useTranslations('sv');
 const { project } = Astro.props;
 const { Content } = await render(project);
 const year = project.data.date.getFullYear();
@@ -23,6 +24,28 @@ const year = project.data.date.getFullYear();
 		<h1>{project.data.title}</h1>
 		<div class="body">
 			<Content />
+		</div>
+		<div class="links">
+			{
+				project.data.url && (
+					<a class="visit" href={project.data.url} target="_blank" rel="noreferrer">
+						{t('projects.visit')}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M7 17 17 7M7 7h10v10" />
+						</svg>
+					</a>
+				)
+			}
+			{
+				project.data.repoUrl && (
+					<a class="visit" href={project.data.repoUrl} target="_blank" rel="noreferrer">
+						{t('projects.viewCode')}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M7 17 17 7M7 7h10v10" />
+						</svg>
+					</a>
+				)
+			}
 		</div>
 	</article>
 </Base>
@@ -56,5 +79,25 @@ const year = project.data.date.getFullYear();
 		color: var(--ink-soft);
 		font-size: 17px;
 		line-height: 1.7;
+	}
+	.links {
+		margin-top: 32px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px;
+	}
+	.visit {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--font-mono);
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--accent);
+		text-decoration: none;
+	}
+	.visit svg {
+		width: 16px;
+		height: 16px;
 	}
 </style>

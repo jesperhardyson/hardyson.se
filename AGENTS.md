@@ -2,6 +2,7 @@
 
 - Always ask for explicit confirmation before running `git commit` or `git push` in this repo — never do either proactively, even after other approved changes.
 - Do not add Claude/Anthropic attribution trailers (e.g. `Co-Authored-By: Claude ...`, `Claude-Session: ...`) to commit messages in this repo.
+- The repo is public and `main` has branch protection: pull requests are required (the `build` CI check must pass, branch must be up to date) and this is enforced even for admins — direct pushes to `main` are rejected by GitHub, including from the owner. Work on a feature branch and open a PR instead of pushing straight to `main`; merge only once the `build` check is green. `gh pr create` / `gh pr merge` are the fastest way to do this from the CLI.
 
 ## Deploy
 

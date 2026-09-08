@@ -37,7 +37,7 @@ export const ui = {
 		'about.eyebrow': '👋  OM MIG',
 		'about.title': 'En testledare med utvecklarhjärta',
 		'about.bio1':
-			'Jag är Jesper Hardyson 👋 — test automation engineer, testledare och systemutvecklare. Jag arbetar med test och testledning, testautomatisering av både gränssnitt och API, och systemutveckling.',
+			'Jag är Jesper 👋 — test automation engineer, testledare och systemutvecklare. Jag arbetar med test och testledning, testautomatisering av både gränssnitt och API, och systemutveckling.',
 		'about.tools': '🛠️  VERKTYG & TEKNIK',
 
 		'projects.eyebrow': '🧪  UTVALDA PROJEKT',
@@ -96,7 +96,7 @@ export const ui = {
 		'about.eyebrow': '👋  ABOUT ME',
 		'about.title': 'A test lead with a developer heart',
 		'about.bio1':
-			"I'm Jesper Hardyson 👋 — test automation engineer, test lead, and software developer. I work with testing and test management, test automation of both UI and API, and software development.",
+			"I'm Jesper 👋 — test automation engineer, test lead, and software developer. I work with testing and test management, test automation of both UI and API, and software development.",
 		'about.tools': '🛠️  TOOLS & TECH',
 
 		'projects.eyebrow': '🧪  FEATURED PROJECTS',

@@ -1,24 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCollection } from 'astro:content';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import FeaturedProjects from '../components/FeaturedProjects.astro';
+import FeaturedArticles from '../components/FeaturedArticles.astro';
+import PersonSchema from '../components/PersonSchema.astro';
+import { useTranslations } from '../i18n/utils';
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const lang = 'sv';
+const t = useTranslations(lang);
 ---
 
-<Base title="Jesper Hardyson">
-	<h1>Jesper Hardyson</h1>
-	<p>Portfolio och projekt.</p>
-
-	<ul>
-		{
-			projects.map((project) => (
-				<li>
-					<a href={`/projects/${project.id}/`}>{project.data.title}</a>
-					<p>{project.data.description}</p>
-				</li>
-			))
-		}
-	</ul>
+<Base title={`${t('hero.h1.a')} ${t('hero.h1.accent')} ${t('hero.h1.b')}`}>
+	<PersonSchema />
+	<Hero lang={lang} />
+	<About lang={lang} />
+	<FeaturedProjects lang={lang} />
+	<FeaturedArticles lang={lang} />
 </Base>

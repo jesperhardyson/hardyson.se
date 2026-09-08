@@ -1,10 +1,10 @@
 ---
-import Base from '../../layouts/Base.astro';
+import Base from '../../../layouts/Base.astro';
 import { render } from 'astro:content';
-import { getProjectsForLang } from '../../i18n/utils';
+import { getProjectsForLang } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
-	const projects = await getProjectsForLang('sv');
+	const projects = await getProjectsForLang('en');
 	return projects.map(({ entry, slug }) => ({
 		params: { id: slug },
 		props: { project: entry },
@@ -18,7 +18,7 @@ const year = project.data.date.getFullYear();
 
 <Base title={project.data.title} description={project.data.description} type="article">
 	<article class="section container">
-		<a class="back" href="/projects/">← Projekt</a>
+		<a class="back" href="/en/projects/">← Projects</a>
 		<span class="tech">{project.data.tags.join(' · ')} · {year}</span>
 		<h1>{project.data.title}</h1>
 		<div class="body">

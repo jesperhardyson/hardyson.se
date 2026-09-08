@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const home = lang === 'sv' ? '/' : '/en/';
+---
+
+<Base title={t('404.title')}>
+	<section class="section">
+		<div class="container">
+			<h1>{t('404.title')}</h1>
+			<p class="sub">{t('404.message')}</p>
+			<a class="btn btn-primary" href={home}>{t('404.cta')}</a>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.section {
+		text-align: center;
+		padding-block: 120px;
+	}
+	h1 {
+		font-size: 40px;
+		font-weight: 600;
+		color: var(--ink);
+	}
+	.sub {
+		margin: 20px auto 32px;
+		max-width: 420px;
+		color: var(--ink-soft);
+		font-size: 17px;
+		line-height: 1.6;
+	}
+</style>

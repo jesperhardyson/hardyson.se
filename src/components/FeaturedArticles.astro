@@ -1,0 +1,78 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations, getArticlesForLang } from '../i18n/utils';
+import ArticleCard from './ArticleCard.astro';
+import EmptyState from './EmptyState.astro';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const articles = (await getArticlesForLang(lang)).slice(0, 3);
+const base = lang === 'sv' ? '/articles/' : '/en/articles/';
+const allHref = lang === 'sv' ? '/articles/' : '/en/articles/';
+---
+
+<section class="section">
+	<div class="container">
+		<div class="head">
+			<div>
+				<span class="eyebrow">{t('articles.eyebrow')}</span>
+				<h2>{t('articles.title')}</h2>
+			</div>
+			<a class="see-all" href={allHref}>{t('articles.seeAll')} →</a>
+		</div>
+		{
+			articles.length > 0 ? (
+				<div class="grid">
+					{articles.map(({ entry, slug }) => (
+						<ArticleCard article={entry} href={`${base}${slug}/`} lang={lang} />
+					))}
+				</div>
+			) : (
+				<div class="empty-wrap">
+					<EmptyState message={t('articles.empty')} />
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.head {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 24px;
+		flex-wrap: wrap;
+	}
+	h2 {
+		font-size: 40px;
+		font-weight: 600;
+		line-height: 1.1;
+		color: var(--ink);
+	}
+	.see-all {
+		font-family: var(--font-mono);
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--accent);
+		text-decoration: none;
+	}
+	.grid {
+		margin-top: 32px;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+	.empty-wrap {
+		margin-top: 32px;
+	}
+	@media (max-width: 900px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

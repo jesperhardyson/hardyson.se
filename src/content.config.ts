@@ -9,8 +9,21 @@ const projects = defineCollection({
 		date: z.coerce.date(),
 		tags: z.array(z.string()).default([]),
 		url: z.string().url().optional(),
+		order: z.number().default(99),
 		draft: z.boolean().default(false),
 	}),
 });
 
-export const collections = { projects };
+const articles = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
+	schema: z.object({
+		title: z.string(),
+		excerpt: z.string(),
+		date: z.coerce.date(),
+		category: z.string(),
+		readingMinutes: z.number(),
+		draft: z.boolean().default(false),
+	}),
+});
+
+export const collections = { projects, articles };

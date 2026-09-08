@@ -1,33 +1,78 @@
 ---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
 interface Props {
 	title: string;
 	description?: string;
+	type?: 'website' | 'article';
 }
 
-const { title, description = 'Jesper Hardyson — portfolio' } = Astro.props;
+const { title, description, type = 'website' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const desc = description ?? t('site.description');
+
+const path = Astro.url.pathname;
+const svPath = lang === 'sv' ? path : path.replace(/^\/en/, '') || '/';
+const enPath = lang === 'en' ? path : `/en${path}`;
+const canonicalUrl = new URL(path, Astro.site);
+const svUrl = new URL(svPath, Astro.site);
+const enUrl = new URL(enPath, Astro.site);
+const ogLocale = lang === 'sv' ? 'sv_SE' : 'en_US';
+const ogLocaleAlt = lang === 'sv' ? 'en_US' : 'sv_SE';
 ---
 
-<html lang="sv">
+<html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
+		<script is:inline>
+			function applyStoredTheme() {
+				document.documentElement.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+			}
+			applyStoredTheme();
+			document.addEventListener('astro:after-swap', applyStoredTheme);
+		</script>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
+		<meta name="description" content={desc} />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="sv" href={svUrl} />
+		<link rel="alternate" hreflang="en" href={enUrl} />
+		<link rel="alternate" hreflang="x-default" href={svUrl} />
+
+		<meta property="og:type" content={type} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={desc} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:site_name" content="Jesper Hardyson" />
+		<meta property="og:locale" content={ogLocale} />
+		<meta property="og:locale:alternate" content={ogLocaleAlt} />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={desc} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=JetBrains+Mono:wght@400..600&family=Space+Grotesk:wght@500..700&display=swap"
+			rel="stylesheet"
+		/>
 		<title>{title}</title>
+		<ClientRouter />
 	</head>
 	<body>
-		<header>
-			<nav>
-				<a href="/">Jesper Hardyson</a>
-			</nav>
-		</header>
+		<Header lang={lang} />
 		<main>
 			<slot />
 		</main>
-		<footer>
-			<p>&copy; {new Date().getFullYear()} Jesper Hardyson</p>
-		</footer>
+		<Footer lang={lang} />
+		<ScrollToTop lang={lang} />
 	</body>
 </html>

@@ -1,0 +1,100 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+	href: string;
+	index: number;
+}
+
+const { project, href, index } = Astro.props;
+const tech = project.data.tags.join(' · ');
+const year = project.data.date.getFullYear();
+---
+
+<a class="row" href={href} data-tags={project.data.tags.join(',')}>
+	<span class="idx">{String(index).padStart(2, '0')}</span>
+	<div class="body">
+		<h3>{project.data.title}</h3>
+		<p>{project.data.description}</p>
+	</div>
+	<div class="meta">
+		<span class="tech">{tech}</span>
+		<span class="year">{year}</span>
+	</div>
+	<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<path d="M7 17 17 7M7 7h10v10" />
+	</svg>
+</a>
+
+<style>
+	.row {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+		padding: 28px 0;
+		border-top: 1px solid var(--line);
+		text-decoration: none;
+		color: inherit;
+	}
+	.idx {
+		font-family: var(--font-mono);
+		font-size: 14px;
+		color: var(--accent);
+		width: 28px;
+		flex-shrink: 0;
+	}
+	.body {
+		flex: 1;
+		min-width: 0;
+	}
+	.body h3 {
+		font-family: var(--font-display);
+		font-size: 26px;
+		font-weight: 600;
+		letter-spacing: -0.5px;
+		color: var(--ink);
+	}
+	.body p {
+		margin-top: 6px;
+		color: var(--ink-soft);
+		font-size: 15px;
+	}
+	.meta {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 4px;
+		flex-shrink: 0;
+		text-align: right;
+	}
+	.tech,
+	.year {
+		font-family: var(--font-mono);
+		font-size: 13px;
+		color: var(--ink-soft);
+	}
+	.arrow {
+		width: 20px;
+		height: 20px;
+		color: var(--ink-soft);
+		flex-shrink: 0;
+		transition: color 0.15s ease, transform 0.15s ease;
+	}
+	.row:hover .arrow {
+		color: var(--accent);
+		transform: translate(2px, -2px);
+	}
+	.row:hover h3 {
+		color: var(--accent);
+	}
+	@media (max-width: 700px) {
+		.row {
+			flex-wrap: wrap;
+		}
+		.meta {
+			align-items: flex-start;
+			text-align: left;
+		}
+	}
+</style>

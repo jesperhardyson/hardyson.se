@@ -1,0 +1,54 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ContactCard from '../../../components/ContactCard.astro';
+import { useTranslations } from '../../../i18n/utils';
+import { socials } from '../../../i18n/ui';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<Base title={t('contact.title')} description={t('contact.sub')}>
+	<section class="section">
+		<div class="container intro">
+			<span class="eyebrow">{t('contact.eyebrow')}</span>
+			<h1>{t('contact.title')}</h1>
+			<p class="sub">{t('contact.sub')}</p>
+		</div>
+		<div class="container cards">
+			<ContactCard kind="email" label={t('contact.email')} value={socials.email} href={`mailto:${socials.email}`} />
+			<ContactCard kind="github" label="GITHUB" value="jesperhardyson" href={socials.github} />
+			<ContactCard kind="linkedin" label="LINKEDIN" value="jesperhardyson" href={socials.linkedin} />
+		</div>
+	</section>
+</Base>
+
+<style>
+	.intro {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	h1 {
+		font-size: 56px;
+		font-weight: 600;
+		letter-spacing: -1.5px;
+		line-height: 1.05;
+		color: var(--ink);
+	}
+	.sub {
+		margin-top: 20px;
+		max-width: 460px;
+		color: var(--ink-soft);
+		font-size: 17px;
+		line-height: 1.6;
+	}
+	.cards {
+		margin: 56px auto 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 20px;
+		max-width: 760px;
+	}
+</style>

@@ -1,0 +1,80 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button type="button" class="scroll-top" data-scroll-top aria-label={t('scrollTop.label')}>
+	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<path d="M12 19V5M5 12l7-7 7 7" />
+	</svg>
+</button>
+
+<style>
+	.scroll-top {
+		position: fixed;
+		right: 24px;
+		bottom: 24px;
+		z-index: 40;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		background: var(--surface);
+		border: 1px solid var(--line);
+		color: var(--ink);
+		cursor: pointer;
+		opacity: 0;
+		transform: translateY(8px);
+		pointer-events: none;
+		transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+	}
+	.scroll-top.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+	.scroll-top:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+	.scroll-top svg {
+		width: 20px;
+		height: 20px;
+	}
+	@media (max-width: 700px) {
+		.scroll-top {
+			right: 16px;
+			bottom: 16px;
+		}
+	}
+</style>
+
+<script>
+	let scrollHandler: (() => void) | undefined;
+
+	function setup() {
+		const btn = document.querySelector<HTMLButtonElement>('[data-scroll-top]');
+		if (!btn) return;
+
+		if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
+		scrollHandler = () => btn.classList.toggle('is-visible', window.scrollY > 480);
+		scrollHandler();
+		window.addEventListener('scroll', scrollHandler, { passive: true });
+
+		btn.addEventListener('click', () => {
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+		});
+	}
+
+	document.addEventListener('astro:page-load', setup);
+</script>

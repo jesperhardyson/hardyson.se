@@ -1,0 +1,66 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import { tools } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="section about" id="about">
+	<div class="container">
+		<span class="eyebrow">{t('about.eyebrow')}</span>
+		<h2>{t('about.title')}</h2>
+		<div class="bio">
+			<p>{t('about.bio1')}</p>
+		</div>
+		<span class="tools-label">{t('about.tools')}</span>
+		<ul class="tools">
+			{tools.map((tool) => (
+				<li class="tag-pill">{tool}</li>
+			))}
+		</ul>
+	</div>
+</section>
+
+<style>
+	h2 {
+		font-size: 38px;
+		font-weight: 600;
+		line-height: 1.15;
+		color: var(--ink);
+		max-width: 640px;
+	}
+	.bio {
+		margin-top: 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		max-width: 720px;
+		color: var(--ink-soft);
+		font-size: 17px;
+		line-height: 1.65;
+	}
+	.tools-label {
+		display: block;
+		margin-top: 40px;
+		margin-bottom: 16px;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 1px;
+		color: var(--ink);
+	}
+	.tools {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+</style>

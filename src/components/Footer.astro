@@ -1,0 +1,62 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+import { socials } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const copy = t('footer.copy').replace('{year}', String(new Date().getFullYear()));
+---
+
+<footer class="site-footer">
+	<div class="container bar">
+		<span class="mark">JH</span>
+		<p class="copy">{copy}</p>
+		<a class="email" href={`mailto:${socials.email}`}>{socials.email}</a>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--line);
+	}
+	.bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding-block: 28px;
+	}
+	.mark {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		border-radius: 8px;
+		background: var(--accent);
+		color: var(--on-accent);
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 14px;
+	}
+	.copy {
+		color: var(--ink-soft);
+		font-size: 14px;
+	}
+	.email {
+		color: var(--ink);
+		font-weight: 500;
+		font-size: 14px;
+		text-decoration: none;
+	}
+	@media (max-width: 700px) {
+		.bar {
+			flex-direction: column;
+			text-align: center;
+		}
+	}
+</style>

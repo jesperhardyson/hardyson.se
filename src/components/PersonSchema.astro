@@ -1,0 +1,20 @@
+---
+import { socials } from '../i18n/ui';
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: 'Jesper Hardyson',
+	url: 'https://hardyson.se',
+	email: `mailto:${socials.email}`,
+	jobTitle: 'Test Automation Engineer',
+	sameAs: [socials.github, socials.linkedin],
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: 'Avesta',
+		addressCountry: 'SE',
+	},
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />

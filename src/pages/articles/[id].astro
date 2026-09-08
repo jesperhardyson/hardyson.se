@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import { render } from 'astro:content';
+import { getArticlesForLang, formatArticleDate, useTranslations } from '../../i18n/utils';
+
+const lang = 'sv';
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+	const articles = await getArticlesForLang('sv');
+	return articles.map(({ entry, slug }) => ({
+		params: { id: slug },
+		props: { article: entry },
+	}));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<Base title={article.data.title} description={article.data.excerpt} type="article">
+	<article class="section container">
+		<a class="back" href="/articles/">← Artiklar</a>
+		<span class="tag">{article.data.category}</span>
+		<h1>{article.data.title}</h1>
+		<div class="meta">
+			<span>{formatArticleDate(article.data.date, lang)}</span>
+			<span>·</span>
+			<span>{article.data.readingMinutes} {t('articles.readingSuffix')}</span>
+		</div>
+		<div class="body">
+			<Content />
+		</div>
+	</article>
+</Base>
+
+<style>
+	.back {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: 14px;
+		color: var(--ink-soft);
+		text-decoration: none;
+		margin-bottom: 24px;
+	}
+	.tag {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		font-weight: 600;
+		color: var(--accent);
+		margin-bottom: 12px;
+	}
+	h1 {
+		font-size: 40px;
+		font-weight: 600;
+		letter-spacing: -0.5px;
+		color: var(--ink);
+		max-width: 760px;
+	}
+	.meta {
+		margin-top: 16px;
+		display: flex;
+		gap: 8px;
+		font-family: var(--font-mono);
+		font-size: 13px;
+		color: var(--ink-soft);
+	}
+	.body {
+		margin-top: 32px;
+		max-width: 680px;
+		color: var(--ink-soft);
+		font-size: 17px;
+		line-height: 1.7;
+	}
+</style>

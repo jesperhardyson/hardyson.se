@@ -1,0 +1,103 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations, getProjectsForLang } from '../i18n/utils';
+import { socials } from '../i18n/ui';
+import ProjectRow from './ProjectRow.astro';
+import EmptyState from './EmptyState.astro';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = await getProjectsForLang(lang);
+const base = lang === 'sv' ? '/projects/' : '/en/projects/';
+---
+
+<section class="section">
+	<div class="container">
+		<div class="head">
+			<div>
+				<span class="eyebrow">{t('projects.eyebrow')}</span>
+				<h2>{t('projects.title')}</h2>
+			</div>
+			<p class="subtitle">{t('projects.subtitle')}</p>
+		</div>
+		{
+			projects.length > 0 ? (
+				<div class="list">
+					{projects.map(({ entry, slug }, i) => (
+						<ProjectRow project={entry} href={`${base}${slug}/`} index={i + 1} />
+					))}
+				</div>
+			) : (
+				<div class="empty-wrap">
+					<EmptyState message={t('projects.empty')} />
+				</div>
+			)
+		}
+		<div class="cta">
+			<a class="see-all" href={socials.github} target="_blank" rel="noreferrer">
+				<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.3-5.467-1.332-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23A11.5 11.5 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.807 5.625-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+				{t('projects.cta')} →
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.head {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 24px;
+		flex-wrap: wrap;
+	}
+	h2 {
+		font-size: 40px;
+		font-weight: 600;
+		line-height: 1.1;
+		color: var(--ink);
+	}
+	.subtitle {
+		max-width: 280px;
+		text-align: right;
+		font-family: var(--font-mono);
+		font-size: 13px;
+		line-height: 1.55;
+		color: var(--ink-soft);
+	}
+	.list {
+		margin-top: 32px;
+		border-bottom: 1px solid var(--line);
+	}
+	.empty-wrap {
+		margin-top: 32px;
+	}
+	.cta {
+		margin-top: 40px;
+		display: flex;
+		justify-content: center;
+	}
+	.see-all {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--font-mono);
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--accent);
+		text-decoration: none;
+	}
+	.see-all svg {
+		width: 16px;
+		height: 16px;
+	}
+	@media (max-width: 700px) {
+		.subtitle {
+			text-align: left;
+			max-width: none;
+		}
+	}
+</style>

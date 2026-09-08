@@ -1,0 +1,124 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import EmptyState from '../../../components/EmptyState.astro';
+import { useTranslations, getArticlesForLang } from '../../../i18n/utils';
+
+const lang = 'en';
+const t = useTranslations(lang);
+const articles = await getArticlesForLang(lang);
+const categories = [...new Set(articles.map(({ entry }) => entry.data.category))];
+---
+
+<Base title={t('articles.page.title')} description={t('articles.page.sub')}>
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow">{t('articles.page.eyebrow')}</span>
+			<h1>{t('articles.page.title')}</h1>
+			<p class="sub">{t('articles.page.sub')}</p>
+
+			{
+				articles.length > 0 && (
+					<div class="filters">
+						<button class="filter active" data-filter="all">
+							{t('nav.all')}
+						</button>
+						{categories.map((cat) => (
+							<button class="filter" data-filter={cat}>
+								{cat}
+							</button>
+						))}
+					</div>
+				)
+			}
+
+			{
+				articles.length > 0 ? (
+					<div class="grid">
+						{articles.map(({ entry, slug }) => (
+							<ArticleCard article={entry} href={`/en/articles/${slug}/`} lang={lang} />
+						))}
+					</div>
+				) : (
+					<div class="empty-wrap">
+						<EmptyState message={t('articles.empty')} />
+					</div>
+				)
+			}
+		</div>
+	</section>
+</Base>
+
+<style>
+	h1 {
+		font-size: 56px;
+		font-weight: 600;
+		letter-spacing: -1.5px;
+		line-height: 1.05;
+		color: var(--ink);
+		max-width: 760px;
+	}
+	.sub {
+		margin-top: 20px;
+		max-width: 560px;
+		color: var(--ink-soft);
+		font-size: 17px;
+		line-height: 1.6;
+	}
+	.filters {
+		margin-top: 40px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+	.filter {
+		font-family: var(--font-mono);
+		font-size: 13px;
+		font-weight: 500;
+		color: var(--ink-soft);
+		background: transparent;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		padding: 8px 16px;
+		cursor: pointer;
+	}
+	.filter.active {
+		background: var(--accent);
+		border-color: var(--accent);
+		color: var(--on-accent);
+	}
+	.grid {
+		margin-top: 32px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+	}
+	.empty-wrap {
+		margin-top: 32px;
+	}
+	@media (max-width: 700px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	function setup() {
+		const filters = document.querySelectorAll<HTMLButtonElement>('.filter');
+		const cards = document.querySelectorAll<HTMLElement>('.grid > a');
+
+		filters.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				filters.forEach((b) => b.classList.remove('active'));
+				btn.classList.add('active');
+				const cat = btn.dataset.filter;
+				cards.forEach((card) => {
+					card.style.display = cat === 'all' || card.dataset.category === cat ? '' : 'none';
+				});
+			});
+		});
+	}
+
+	document.addEventListener('astro:page-load', setup);
+</script>

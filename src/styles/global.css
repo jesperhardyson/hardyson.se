@@ -1,0 +1,130 @@
+:root {
+	--bg: #0a0b0d;
+	--bg-warm: #0e1013;
+	--surface: #14171c;
+	--line: #22262d;
+	--ink: #eceef1;
+	--ink-soft: #868d97;
+	--accent: #c6ff3d;
+	--accent-2: #3ddc97;
+	--accent-soft: #28380f;
+	--accent-tint: #161c0d;
+	--on-accent: #0a0b0d;
+	--radius: 10px;
+	--gap-section: 120px;
+
+	--font-display: 'Space Grotesk', system-ui, sans-serif;
+	--font-body: 'Inter', system-ui, sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+	color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+	--bg: #f7f7f4;
+	--bg-warm: #efefea;
+	--surface: #ffffff;
+	--line: #e4e5e1;
+	--ink: #17191c;
+	--ink-soft: #5b6169;
+	--accent: #2e7d32;
+	--accent-2: #1f9e6e;
+	--accent-soft: #e1f1d6;
+	--accent-tint: #edf6e4;
+	--on-accent: #ffffff;
+
+	color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: var(--font-body);
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--font-display);
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}
+
+a {
+	color: inherit;
+}
+
+.container {
+	width: 100%;
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 80px;
+}
+
+@media (max-width: 900px) {
+	.container {
+		padding: 0 24px;
+	}
+}
+
+.eyebrow {
+	display: block;
+	font-family: var(--font-mono);
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	color: var(--accent);
+	margin-bottom: 12px;
+}
+
+.section {
+	padding-block: 64px;
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--font-body);
+	font-weight: 600;
+	font-size: 16px;
+	border-radius: var(--radius);
+	padding: 12px 22px;
+	text-decoration: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+}
+
+.btn-primary {
+	background: var(--accent);
+	color: var(--on-accent);
+}
+
+.btn-secondary {
+	background: transparent;
+	color: var(--ink);
+	border-color: var(--line);
+}
+
+.tag-pill {
+	font-family: var(--font-mono);
+	font-size: 13px;
+	color: var(--ink-soft);
+	background: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	padding: 6px 14px;
+}

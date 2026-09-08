@@ -1,6 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import { render } from 'astro:content';
+import { Image } from 'astro:assets';
 import { getProjectsForLang, useTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -22,6 +23,13 @@ const year = project.data.date.getFullYear();
 		<a class="back" href="/en/projects/">← Projects</a>
 		<span class="tech">{project.data.tags.join(' · ')} · {year}</span>
 		<h1>{project.data.title}</h1>
+		{
+			project.data.thumbnail && (
+				<div class="shot">
+					<Image src={project.data.thumbnail} alt="" width={760} height={420} />
+				</div>
+			)
+		}
 		<div class="body">
 			<Content />
 		</div>
@@ -72,6 +80,20 @@ const year = project.data.date.getFullYear();
 		letter-spacing: -0.5px;
 		color: var(--ink);
 		max-width: 760px;
+	}
+	.shot {
+		margin-top: 32px;
+		max-width: 760px;
+		border-radius: var(--radius);
+		overflow: hidden;
+		border: 1px solid var(--line);
+		background: var(--accent-tint);
+	}
+	.shot :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 	.body {
 		margin-top: 32px;

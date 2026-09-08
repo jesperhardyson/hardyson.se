@@ -4,6 +4,7 @@ description: "A short description of the project and what you built."
 date: 2026-01-01
 tags: ["astro", "portfolio"]
 url: "https://example.com"
+order: 1
 draft: true
 ---
 

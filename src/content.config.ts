@@ -3,15 +3,18 @@ import { glob } from 'astro/loaders';
 
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
-	schema: z.object({
-		title: z.string(),
-		description: z.string(),
-		date: z.coerce.date(),
-		tags: z.array(z.string()).default([]),
-		url: z.string().url().optional(),
-		order: z.number().default(99),
-		draft: z.boolean().default(false),
-	}),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			date: z.coerce.date(),
+			tags: z.array(z.string()).default([]),
+			url: z.string().url().optional(),
+			repoUrl: z.string().url().optional(),
+			thumbnail: image().optional(),
+			order: z.number().default(99),
+			draft: z.boolean().default(false),
+		}),
 });
 
 const articles = defineCollection({

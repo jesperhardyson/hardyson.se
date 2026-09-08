@@ -3,7 +3,9 @@ title: "mansbo.se"
 description: "The website for Månsbo, a village by the Dalälven river in Avesta municipality, Sweden."
 date: 2026-09-03
 tags: ["Next.js", "Sanity", "Vercel"]
-url: "https://github.com/jesperhardyson/mansbo.se"
+url: "https://www.mansbo.se"
+repoUrl: "https://github.com/jesperhardyson/mansbo.se"
+thumbnail: "../../../assets/projects/mansbo-screenshot.png"
 order: 2
 draft: false
 ---

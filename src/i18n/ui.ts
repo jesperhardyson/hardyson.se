@@ -49,6 +49,7 @@ export const ui = {
 		'projects.page.title': 'Saker jag byggt och testat',
 		'projects.page.sub': 'Ett urval av projekt inom testautomatisering, utveckling och CI/CD. Varje projekt länkar till sitt repo på GitHub.',
 		'projects.visit': 'Besök projektet',
+		'projects.viewCode': 'Visa koden',
 		'projects.empty': 'Inga projekt att visa än.',
 
 		'articles.eyebrow': '✍️  UTVALDA ARTIKLAR',
@@ -110,6 +111,7 @@ export const ui = {
 		'projects.page.title': "Things I've built and tested",
 		'projects.page.sub': 'A selection of projects in test automation, development, and CI/CD. Every project links to its repo on GitHub.',
 		'projects.visit': 'Visit project',
+		'projects.viewCode': 'View code',
 		'projects.empty': 'No projects to show yet.',
 
 		'articles.eyebrow': '✍️  FEATURED ARTICLES',

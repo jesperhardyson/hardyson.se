@@ -50,7 +50,7 @@ When starting the dev server, use background mode:
 astro dev --background
 ```
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`. Use these built-in commands rather than manual `nohup ... &` + `pkill` — `pkill -f "astro dev"` does **not** match the actual process (`node .../astro.mjs dev`, no literal "astro dev" substring), so it silently fails and leaves the old process running. Repeated manual restarts this way can leave several dev servers running at once, all fighting over the same port and the same `.astro` cache — later ones silently fall back to a different port (4324, 4325, ...) while you keep testing against the stale original, and concurrent writes to the image cache can corrupt it (symptoms: 500s from `/_image`, "broken" images, features that "don't work" until a clean restart). Before starting a new one, verify with `lsof -iTCP:<port> -sTCP:LISTEN -P` and `ps aux | grep astro` that nothing stale is already holding the port, and kill strays by exact PID, not by pattern.
 
 ## Documentation
 

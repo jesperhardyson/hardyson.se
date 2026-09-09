@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { images } = Astro.props;
+const wideFirst = images.length === 2;
 ---
 
 {
@@ -14,8 +15,13 @@ const { images } = Astro.props;
 		<>
 			<div class="gallery">
 				{images.map((img, i) => (
-					<button type="button" class={`shot ${i === 0 && images.length > 1 ? 'wide' : ''}`} data-lightbox-trigger data-index={i} aria-label="Öppna bild">
-						<Image src={img} alt="" width={i === 0 && images.length > 1 ? 520 : 260} height={400} />
+					<button type="button" class={`shot ${i === 0 && wideFirst ? 'wide' : ''}`} data-lightbox-trigger data-index={i} aria-label="Öppna bild">
+						<Image
+							src={img}
+							alt=""
+							width={images.length === 1 ? 760 : i === 0 && wideFirst ? 520 : 260}
+							height={images.length === 1 ? 420 : 400}
+						/>
 					</button>
 				))}
 			</div>

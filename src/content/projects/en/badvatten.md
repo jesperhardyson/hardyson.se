@@ -3,7 +3,9 @@ title: "Badvatten"
 description: "A Nordic app for finding swimming spots in Sweden, Norway, Finland, and Denmark, with real-time water quality and temperature data."
 date: 2026-05-17
 tags: ["React Native", "Expo", "Supabase"]
-url: "https://apps.apple.com/se/app/badvatten-mina-badplatser/id6770287621"
+appStoreUrl: "https://apps.apple.com/se/app/badvatten-mina-badplatser/id6770287621"
+playStoreUrl: "https://play.google.com/store/apps/details?id=se.badvatten.app"
+webUrl: "https://badvatten.app"
 thumbnail: "../../../assets/projects/badvatten-icon.jpg"
 gallery:
   - "../../../assets/projects/badvatten-web.png"

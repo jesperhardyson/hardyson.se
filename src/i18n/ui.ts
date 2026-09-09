@@ -50,6 +50,9 @@ export const ui = {
 		'projects.page.sub': 'Ett urval av projekt inom testautomatisering, utveckling och CI/CD. Varje projekt länkar till sitt repo på GitHub.',
 		'projects.visit': 'Besök projektet',
 		'projects.viewCode': 'Visa koden',
+		'projects.appStore': 'App Store',
+		'projects.playStore': 'Google Play Store',
+		'projects.webApp': 'Webbappen',
 		'projects.empty': 'Inga projekt att visa än.',
 
 		'articles.eyebrow': '✍️  UTVALDA ARTIKLAR',
@@ -112,6 +115,9 @@ export const ui = {
 		'projects.page.sub': 'A selection of projects in test automation, development, and CI/CD. Every project links to its repo on GitHub.',
 		'projects.visit': 'Visit project',
 		'projects.viewCode': 'View code',
+		'projects.appStore': 'App Store',
+		'projects.playStore': 'Google Play Store',
+		'projects.webApp': 'Web App',
 		'projects.empty': 'No projects to show yet.',
 
 		'articles.eyebrow': '✍️  FEATURED ARTICLES',

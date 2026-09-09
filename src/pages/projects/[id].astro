@@ -24,10 +24,20 @@ const year = project.data.date.getFullYear();
 		<span class="tech">{project.data.tags.join(' · ')} · {year}</span>
 		<h1>{project.data.title}</h1>
 		{
-			project.data.thumbnail && (
-				<div class="shot">
-					<Image src={project.data.thumbnail} alt="" width={760} height={420} />
+			project.data.gallery && project.data.gallery.length > 0 ? (
+				<div class="gallery">
+					{project.data.gallery.map((img, i) => (
+						<div class={`shot ${i === 0 ? 'wide' : ''}`}>
+							<Image src={img} alt="" width={i === 0 ? 520 : 260} height={400} />
+						</div>
+					))}
 				</div>
+			) : (
+				project.data.thumbnail && (
+					<div class="shot">
+						<Image src={project.data.thumbnail} alt="" width={760} height={420} />
+					</div>
+				)
 			)
 		}
 		<div class="body">
@@ -81,7 +91,15 @@ const year = project.data.date.getFullYear();
 		color: var(--ink);
 		max-width: 760px;
 	}
+	.gallery {
+		margin-top: 32px;
+		display: flex;
+		gap: 16px;
+		max-width: 760px;
+	}
 	.shot {
+		flex: 1;
+		height: 400px;
 		margin-top: 32px;
 		max-width: 760px;
 		border-radius: var(--radius);
@@ -89,11 +107,22 @@ const year = project.data.date.getFullYear();
 		border: 1px solid var(--line);
 		background: var(--accent-tint);
 	}
+	.shot.wide {
+		flex: 2;
+	}
 	.shot :global(img) {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		display: block;
+	}
+	.gallery .shot {
+		margin-top: 0;
+	}
+	@media (max-width: 700px) {
+		.gallery {
+			flex-direction: column;
+		}
 	}
 	.body {
 		margin-top: 32px;

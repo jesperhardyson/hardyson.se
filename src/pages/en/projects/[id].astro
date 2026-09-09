@@ -49,6 +49,36 @@ const images = project.data.gallery ?? (project.data.thumbnail ? [project.data.t
 					</a>
 				)
 			}
+			{
+				project.data.webUrl && (
+					<a class="visit" href={project.data.webUrl} target="_blank" rel="noreferrer">
+						{t('projects.webApp')}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M7 17 17 7M7 7h10v10" />
+						</svg>
+					</a>
+				)
+			}
+			{
+				project.data.appStoreUrl && (
+					<a class="visit" href={project.data.appStoreUrl} target="_blank" rel="noreferrer">
+						{t('projects.appStore')}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M7 17 17 7M7 7h10v10" />
+						</svg>
+					</a>
+				)
+			}
+			{
+				project.data.playStoreUrl && (
+					<a class="visit" href={project.data.playStoreUrl} target="_blank" rel="noreferrer">
+						{t('projects.playStore')}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M7 17 17 7M7 7h10v10" />
+						</svg>
+					</a>
+				)
+			}
 		</div>
 	</article>
 </Base>

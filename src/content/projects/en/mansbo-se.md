@@ -6,6 +6,10 @@ tags: ["Next.js", "Sanity", "Vercel"]
 url: "https://www.mansbo.se"
 repoUrl: "https://github.com/jesperhardyson/mansbo.se"
 thumbnail: "../../../assets/projects/mansbo-screenshot.png"
+gallery:
+  - "../../../assets/projects/mansbo-screenshot.png"
+  - "../../../assets/projects/mansbo-bilder.png"
+  - "../../../assets/projects/mansbo-om.png"
 order: 2
 draft: false
 ---

@@ -1,7 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import { render } from 'astro:content';
-import { Image } from 'astro:assets';
+import ProjectGallery from '../../../components/ProjectGallery.astro';
 import { getProjectsForLang, useTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -16,6 +16,7 @@ const t = useTranslations('en');
 const { project } = Astro.props;
 const { Content } = await render(project);
 const year = project.data.date.getFullYear();
+const images = project.data.gallery ?? (project.data.thumbnail ? [project.data.thumbnail] : []);
 ---
 
 <Base title={project.data.title} description={project.data.description} type="article">
@@ -23,23 +24,7 @@ const year = project.data.date.getFullYear();
 		<a class="back" href="/en/projects/">← Projects</a>
 		<span class="tech">{project.data.tags.join(' · ')} · {year}</span>
 		<h1>{project.data.title}</h1>
-		{
-			project.data.gallery && project.data.gallery.length > 0 ? (
-				<div class="gallery">
-					{project.data.gallery.map((img, i) => (
-						<div class={`shot ${i === 0 ? 'wide' : ''}`}>
-							<Image src={img} alt="" width={i === 0 ? 520 : 260} height={400} />
-						</div>
-					))}
-				</div>
-			) : (
-				project.data.thumbnail && (
-					<div class="shot">
-						<Image src={project.data.thumbnail} alt="" width={760} height={420} />
-					</div>
-				)
-			)
-		}
+		<ProjectGallery images={images} />
 		<div class="body">
 			<Content />
 		</div>
@@ -90,39 +75,6 @@ const year = project.data.date.getFullYear();
 		letter-spacing: -0.5px;
 		color: var(--ink);
 		max-width: 760px;
-	}
-	.gallery {
-		margin-top: 32px;
-		display: flex;
-		gap: 16px;
-		max-width: 760px;
-	}
-	.shot {
-		flex: 1;
-		height: 400px;
-		margin-top: 32px;
-		max-width: 760px;
-		border-radius: var(--radius);
-		overflow: hidden;
-		border: 1px solid var(--line);
-		background: var(--accent-tint);
-	}
-	.shot.wide {
-		flex: 2;
-	}
-	.shot :global(img) {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-	}
-	.gallery .shot {
-		margin-top: 0;
-	}
-	@media (max-width: 700px) {
-		.gallery {
-			flex-direction: column;
-		}
 	}
 	.body {
 		margin-top: 32px;

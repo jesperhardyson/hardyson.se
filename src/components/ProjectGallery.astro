@@ -1,0 +1,135 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+	images: ImageMetadata[];
+}
+
+const { images } = Astro.props;
+---
+
+{
+	images.length > 0 && (
+		<>
+			<div class="gallery">
+				{images.map((img, i) => (
+					<button type="button" class={`shot ${i === 0 && images.length > 1 ? 'wide' : ''}`} data-lightbox-trigger data-index={i} aria-label="Öppna bild">
+						<Image src={img} alt="" width={i === 0 && images.length > 1 ? 520 : 260} height={400} />
+					</button>
+				))}
+			</div>
+
+			<dialog class="lightbox">
+				<button type="button" class="close" data-lightbox-close aria-label="Stäng">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M18 6 6 18M6 6l12 12" />
+					</svg>
+				</button>
+				{images.map((img, i) => (
+					<Image src={img} alt="" width={1400} data-lightbox-image data-index={i} />
+				))}
+			</dialog>
+		</>
+	)
+}
+
+<style>
+	.gallery {
+		margin-top: 32px;
+		display: flex;
+		gap: 16px;
+		max-width: 760px;
+	}
+	.shot {
+		flex: 1;
+		height: 400px;
+		padding: 0;
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		overflow: hidden;
+		background: var(--accent-tint);
+		cursor: pointer;
+	}
+	.shot.wide {
+		flex: 2;
+	}
+	.shot :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.lightbox {
+		border: none;
+		background: transparent;
+		padding: 0;
+		max-width: 92vw;
+		max-height: 92vh;
+	}
+	.lightbox::backdrop {
+		background: rgba(0, 0, 0, 0.85);
+	}
+	.lightbox :global(img) {
+		display: none;
+		max-width: 92vw;
+		max-height: 92vh;
+		width: auto;
+		height: auto;
+		border-radius: 8px;
+	}
+	.close {
+		position: fixed;
+		top: 20px;
+		right: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: var(--surface);
+		border: 1px solid var(--line);
+		color: var(--ink);
+		cursor: pointer;
+	}
+	.close svg {
+		width: 18px;
+		height: 18px;
+	}
+	@media (max-width: 700px) {
+		.gallery {
+			flex-direction: column;
+		}
+		.shot {
+			height: 280px;
+		}
+	}
+</style>
+
+<script>
+	function setup() {
+		const dialog = document.querySelector<HTMLDialogElement>('.lightbox');
+		if (!dialog) return;
+
+		const triggers = document.querySelectorAll<HTMLButtonElement>('[data-lightbox-trigger]');
+		const images = dialog.querySelectorAll<HTMLElement>('[data-lightbox-image]');
+
+		triggers.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const idx = btn.dataset.index;
+				images.forEach((img) => {
+					img.style.display = img.dataset.index === idx ? 'block' : 'none';
+				});
+				dialog.showModal();
+			});
+		});
+
+		dialog.querySelector('[data-lightbox-close]')?.addEventListener('click', () => dialog.close());
+		dialog.addEventListener('click', (e) => {
+			if (e.target === dialog) dialog.close();
+		});
+	}
+
+	document.addEventListener('astro:page-load', setup);
+</script>

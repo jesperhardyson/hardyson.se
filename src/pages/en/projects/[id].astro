@@ -113,6 +113,9 @@ const images = project.data.gallery ?? (project.data.thumbnail ? [project.data.t
 		font-size: 17px;
 		line-height: 1.7;
 	}
+	.body > :global(* + *) {
+		margin-top: 16px;
+	}
 	.links {
 		margin-top: 32px;
 		display: flex;

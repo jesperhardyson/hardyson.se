@@ -42,6 +42,13 @@
 - Local dev uses whatever Node is active in the shell (currently 22.x per `.nvmrc`-less setup); Vercel currently builds with Node 24.x (see Project Settings → Node.js Version).
 - Keep these in sync when changing either — mismatches can cause "works locally, breaks on Vercel" issues. `package.json` `engines.node` currently allows `>=22.12.0`.
 
+## Tests
+
+- End-to-end tests live in `e2e/` (Playwright + `@axe-core/playwright`) and run against the production build via `astro preview`: `npm run build && npm run test:e2e`. They cover navigation, language switching, theme persistence, the lightbox, client-side navigation (`ClientRouter`) regressions, SEO meta tags and WCAG 2.1 AA via axe.
+- CI runs them inside the `build` job, so they gate merging to `main`.
+- `npm run test:e2e` also regenerates `src/data/e2e-summary.json` (via `e2e/summary-reporter.ts`, only on a fully green run), which the homepage terminal panel (`Hero.astro`) renders. Commit it whenever tests are added/removed — CI fails if it's stale. A filtered run (`npx playwright test <file>`) doesn't touch it.
+- In sandboxes with a preinstalled Chromium, set `PW_CHROMIUM_PATH` (e.g. `/opt/pw-browsers/chromium`) instead of running `playwright install`.
+
 ## Development
 
 When starting the dev server, use background mode:

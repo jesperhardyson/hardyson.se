@@ -21,3 +21,21 @@ jobs:
       - run: npm run check
 
       - run: npm run build
+
+      # E2E tests run in this same job so the required `build` check covers them.
+      - run: npx playwright install --with-deps chromium
+
+      - run: npm run test:e2e
+
+      # The homepage terminal panel renders this file; fail if the committed copy is stale.
+      - name: Check e2e summary is up to date
+        run: git diff --exit-code -- src/data/e2e-summary.json || { echo "::error::src/data/e2e-summary.json is out of date. Run 'npm run build && npm run test:e2e' and commit the result."; exit 1; }
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

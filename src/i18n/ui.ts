@@ -28,11 +28,9 @@ export const ui = {
 		'hero.sub':
 			'Jag arbetar med test och testledning, testautomatisering av både gränssnitt och API, och systemutveckling — och bygger in kvalitet från krav till grön pipeline.',
 		'hero.cta.primary': 'Se projekt',
-		'hero.panel.file': 'PaymentTests.cs — dotnet test',
-		'hero.panel.passed': 'Passed!',
-		'hero.panel.tests': '128 tests',
-		'hero.panel.total': ', 128 total',
-		'hero.panel.duration': 'Duration: ',
+		'hero.panel.file': 'hardyson.se — playwright',
+		'hero.panel.passed': 'passed',
+		'hero.panel.note': '# Riktiga tester av den här sajten, körs i CI',
 
 		'about.eyebrow': '👋  OM MIG',
 		'about.title': 'En testledare med utvecklarhjärta',
@@ -93,11 +91,9 @@ export const ui = {
 		'hero.sub':
 			"I work with testing and test management, test automation of both UI and API, and software development — building in quality from requirements to green pipeline.",
 		'hero.cta.primary': 'See projects',
-		'hero.panel.file': 'PaymentTests.cs — dotnet test',
-		'hero.panel.passed': 'Passed!',
-		'hero.panel.tests': '128 tests',
-		'hero.panel.total': ', 128 total',
-		'hero.panel.duration': 'Duration: ',
+		'hero.panel.file': 'hardyson.se — playwright',
+		'hero.panel.passed': 'passed',
+		'hero.panel.note': '# Real tests of this very site, run in CI',
 
 		'about.eyebrow': '👋  ABOUT ME',
 		'about.title': 'A test lead with a developer heart',

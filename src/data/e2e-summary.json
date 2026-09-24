@@ -1,0 +1,25 @@
+{
+	"total": 22,
+	"files": [
+		{
+			"file": "accessibility.spec.ts",
+			"tests": 8
+		},
+		{
+			"file": "lightbox.spec.ts",
+			"tests": 3
+		},
+		{
+			"file": "navigation.spec.ts",
+			"tests": 5
+		},
+		{
+			"file": "seo.spec.ts",
+			"tests": 3
+		},
+		{
+			"file": "theme.spec.ts",
+			"tests": 3
+		}
+	]
+}

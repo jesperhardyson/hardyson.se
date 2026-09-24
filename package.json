@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "test:e2e": "E2E_SUMMARY=1 playwright test"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
@@ -22,6 +23,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "typescript": "^6.0.3"
   }
 }

@@ -2,7 +2,6 @@
 import type { Lang } from '../i18n/utils';
 import { useTranslations, getArticlesForLang } from '../i18n/utils';
 import ArticleCard from './ArticleCard.astro';
-import EmptyState from './EmptyState.astro';
 
 interface Props {
 	lang: Lang;
@@ -15,30 +14,29 @@ const base = lang === 'sv' ? '/articles/' : '/en/articles/';
 const allHref = lang === 'sv' ? '/articles/' : '/en/articles/';
 ---
 
-<section class="section">
-	<div class="container">
-		<div class="head">
-			<div>
-				<span class="eyebrow">{t('articles.eyebrow')}</span>
-				<h2>{t('articles.title')}</h2>
-			</div>
-			<a class="see-all" href={allHref}>{t('articles.seeAll')} →</a>
-		</div>
-		{
-			articles.length > 0 ? (
+{
+	/* Hidden entirely until at least one article is published in this language. */
+	articles.length > 0 && (
+		<section class="section">
+			<div class="container">
+				<div class="head">
+					<div>
+						<span class="eyebrow">{t('articles.eyebrow')}</span>
+						<h2>{t('articles.title')}</h2>
+					</div>
+					<a class="see-all" href={allHref}>
+						{t('articles.seeAll')} →
+					</a>
+				</div>
 				<div class="grid">
 					{articles.map(({ entry, slug }) => (
 						<ArticleCard article={entry} href={`${base}${slug}/`} lang={lang} />
 					))}
 				</div>
-			) : (
-				<div class="empty-wrap">
-					<EmptyState message={t('articles.empty')} />
-				</div>
-			)
-		}
-	</div>
-</section>
+			</div>
+		</section>
+	)
+}
 
 <style>
 	.head {
@@ -66,9 +64,6 @@ const allHref = lang === 'sv' ? '/articles/' : '/en/articles/';
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 20px;
-	}
-	.empty-wrap {
-		margin-top: 32px;
 	}
 	@media (max-width: 900px) {
 		.grid {

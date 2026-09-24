@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang } from '../i18n/utils';
+import { useTranslations, getArticlesForLang, type Lang } from '../i18n/utils';
 import { socials } from '../i18n/ui';
 
 interface Props {
@@ -12,10 +12,13 @@ const home = lang === 'sv' ? '/' : '/en/';
 const path = Astro.url.pathname;
 const altHref = lang === 'sv' ? `/en${path}` : path.replace(/^\/en/, '') || '/';
 
+// The articles link is hidden until at least one article is published in this language.
+const hasArticles = (await getArticlesForLang(lang)).length > 0;
+
 const navItems = [
 	{ label: t('nav.work'), href: lang === 'sv' ? '/projects/' : '/en/projects/' },
 	{ label: t('nav.about'), href: `${home}#about` },
-	{ label: t('nav.journal'), href: lang === 'sv' ? '/articles/' : '/en/articles/' },
+	...(hasArticles ? [{ label: t('nav.journal'), href: lang === 'sv' ? '/articles/' : '/en/articles/' }] : []),
 	{ label: t('nav.contact'), href: lang === 'sv' ? '/contact/' : '/en/contact/' },
 ];
 ---

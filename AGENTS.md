@@ -15,7 +15,7 @@
 - Projects use `order` (number) to control manual display order (not date-sorted); articles are sorted by `date` descending.
 - Set `draft: true` until an entry is ready to publish; `draft: false` (or omit) to make it live.
 - Swedish is the default locale and lives at the root (`/`, `/projects/<id>/`, `/articles/<id>/`, `/contact/`); English lives under `/en/` (`/en/projects/<id>/`, etc). Routing is configured in `astro.config.mjs` (`i18n`).
-- UI copy (nav, footer, section headings, etc.) lives in `src/i18n/ui.ts`; add new keys there for both languages rather than hardcoding strings in pages/components. `socials` (GitHub/LinkedIn URLs, email, phone) and `tools` (tech tag list) also live there — the GitHub/LinkedIn URLs are placeholders (`jesperhardyson`) and should be verified.
+- UI copy (nav, footer, section headings, etc.) lives in `src/i18n/ui.ts`; add new keys there for both languages rather than hardcoding strings in pages/components. `socials` (GitHub/LinkedIn URLs, email) and `tools` (tech tag list) also live there.
 - Adding a new page in one language requires a matching page under `src/pages/en/` (or the root) for the other language — pages are duplicated per locale by design, sharing logic via `src/i18n/utils.ts` and shared components in `src/components/`.
 - Visual design (colors, type, layout) comes from `docs/design.pen`, a Pencil design file the user actively edits — never read or write it directly, only via the `pencil` MCP tools, and never touch `docs/` (including `docs/.claude/`) unless the user explicitly asks; it's their design workspace, not site source. Design tokens are mirrored as CSS custom properties in `src/styles/global.css`.
 - The contact page (`src/pages/contact/`, `src/pages/en/contact/`) has no form — just email/GitHub/LinkedIn cards (`ContactCard.astro`). If a form is added later, static hosting has no backend, so it'll need a real submission handler (Vercel function, Formspree, etc.).
@@ -26,7 +26,7 @@
 - `public/robots.txt` allows all crawlers and points to the sitemap.
 - `src/layouts/Base.astro` computes canonical URL, hreflang alternates (`sv`/`en`/`x-default`), and Open Graph/Twitter meta tags per page from `Astro.url` — don't hardcode these, they're derived automatically for any new page.
 - Pass `type="article"` to `Base` on content detail pages (project/article `[id].astro`) so `og:type` is correct; leave the default `"website"` for listing/section pages.
-- No `og:image` yet (no image asset exists) — social share previews will be text-only until one is added.
+- `og:image` defaults to `public/og-image.png` (1200×630). Pages can pass an `image` (an imported/collection `ImageMetadata`) to `Base` to override it — it's cropped to 1200×630 JPEG at build time. Project detail pages pass the first gallery image (falling back to `thumbnail`).
 - `src/components/PersonSchema.astro` adds JSON-LD `Person` structured data, included only on the homepage (`sv` and `en`) — don't duplicate it on every page.
 - `src/pages/404.astro` is a real not-found page (locale-aware); Astro/Vercel serve it with a 404 status automatically for unmatched routes.
 

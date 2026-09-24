@@ -19,7 +19,7 @@ const year = project.data.date.getFullYear();
 const images = project.data.gallery ?? (project.data.thumbnail ? [project.data.thumbnail] : []);
 ---
 
-<Base title={project.data.title} description={project.data.description} type="article">
+<Base title={project.data.title} description={project.data.description} type="article" image={images[0]}>
 	<article class="section container">
 		<a class="back" href="/en/projects/">← Projects</a>
 		<span class="tech">{project.data.tags.join(' · ')} · {year}</span>
